@@ -8,6 +8,12 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>cloud-consumer-order80</artifactId>
     <dependencies>
+        <!--Eureka Client 2.x-->
+        <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-eureka-server -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
         <!--引入自定义的api通用包-->
         <dependency>
             <groupId>com.atguigu.springcloud</groupId>

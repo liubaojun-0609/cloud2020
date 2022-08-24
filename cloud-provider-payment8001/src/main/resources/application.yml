@@ -9,7 +9,14 @@ spring:
     url: jdbc:mysql://192.168.32.11:3306/Project?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: admin
     password: 123456
+
 mybatis:
   mapperLocations: classpath:mapper/*.xml
   type-aliases-package: com.atguigu.springcloud.entities
 
+eureka:
+  client:
+    register-with-eureka: true  #表示将自己注册进Eureka Server
+    fetch-registry: true  #是否从EurekaServer 注册中心抓取已有的注册信息，默认为true；单节点无所谓，集群必须为true才能配合ribbo使用负载均衡
+    service-url:
+      defaultZone: http://localhost:7001/eureka
