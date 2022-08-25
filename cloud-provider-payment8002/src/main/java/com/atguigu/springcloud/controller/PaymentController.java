@@ -5,9 +5,12 @@ import com.atguigu.springcloud.entities.Payment;
 import com.atguigu.springcloud.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,6 +28,8 @@ public class PaymentController {
     @Value("${server.port}")
     private String serverPort;
 
+    @Resource
+    private DiscoveryClient discoveryClient;
     @PostMapping(value = "/payment/create")
     public CommentResult create(@RequestBody Payment payment){
         int result = paymentService.create(payment);
@@ -45,5 +50,19 @@ public class PaymentController {
         }else {
             return new CommentResult(444,"根据ID：" + id + "查询结果为空；serverPort：" + serverPort,null);
         }
+    }
+
+    @GetMapping(value = "/payment/discovery")
+    public Object discovery(){
+        List<String> services = discoveryClient.getServices();
+        for(String element : services){
+            log.info("Service : " + element);
+            List<ServiceInstance> instances = discoveryClient.getInstances(element);
+            for (ServiceInstance serviceInstance : instances){
+                log.info("ServiceInstance : " + serviceInstance.getInstanceId() + "\t" + serviceInstance.getUri());
+            }
+            log.info("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        }
+        return services;
     }
 }
