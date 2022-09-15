@@ -21,3 +21,5 @@ cloud-provider-payment8006   支付模块 注册到consul
 
 
 Test  by liubaojun
+abdcasdsa
+asdfasdfadsf
